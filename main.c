@@ -9,7 +9,8 @@ int main(int argc, char **argv) {
 	random_value_array(str, len);
 	//bubble_sort(str, len);
 	//selection_sort(str, len);
-	quick_sort(str, len);
+	//quick_sort(str, len);
+	merge_sort(str, len);
 	print_array(str, len);
 
 	return 0;

@@ -3,5 +3,6 @@
 
 void random_value_array(char **str, int len); 
 void print_array(char **str, int len);
+char** to_clone(char **str, int len);
 
 #endif

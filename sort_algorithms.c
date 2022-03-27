@@ -1,5 +1,6 @@
 #include "sort_algorithms.h"
 #include <string.h> //strcmp()
+#include "utils.h"
 
 
 void bubble_sort(char **str, int len) {
@@ -61,7 +62,36 @@ void real_quick_sort(char **str, int left, int right) {
 }
 
 
-void merge_sort(char **str, int len) {}
+void merge_sort(char **str, int len) {
+	char **clone_str = to_clone(str, len);
+	top_down_split_merge(clone_str, 0, len, str);
+}
+
+void top_down_split_merge(char **clone_str, int left, int right, char **str) {
+	if (right - left <= 1)
+		return;
+
+	int mid = (left + right) / 2;
+	top_down_split_merge(str, left, mid, clone_str);
+	top_down_split_merge(str, mid, right, clone_str);
+
+	top_down_merge(clone_str, left, mid, right, str);
+}
+
+void top_down_merge(char **str1, int left, int mid, int right, char **str2) {
+	int i = left, j = mid;
+
+	for (int k = left; k < right; k++) {
+		if (i < mid && (j >= right || strcmp(str1[i], str1[j]) < 0 )) {
+			str2[k] = str1[i];
+			i += 1;
+		}
+		else {
+			str2[k] = str1[j];
+			j += 1;
+		}
+	}
+}
 
 
 

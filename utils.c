@@ -30,4 +30,14 @@ void print_array(char **str, int len) {
 }
 
 
+char** to_clone(char **str, int len) {
+	char **clone_str = (char**) malloc(len*sizeof(char*));
+	
+	for (int i = 0; i < len; i++) {
+		int clone_element_len = strlen(str[i])+1;
+		clone_str[i] = (char*) malloc(clone_element_len*sizeof(char));
+		strcpy(clone_str[i], str[i]);
+	}
+	return clone_str;
+}
 
