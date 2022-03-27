@@ -7,4 +7,7 @@ void quick_sort(char **str, int len);
 void merge_sort(char **str, int len);
 void selection_sort(char **str, int len);
 
+void real_quick_sort(char **str, int left, int right);
+
+
 #endif

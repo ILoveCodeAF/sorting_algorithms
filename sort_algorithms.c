@@ -1,5 +1,5 @@
 #include "sort_algorithms.h"
-#include "string.h" //strcmp()
+#include <string.h> //strcmp()
 
 
 void bubble_sort(char **str, int len) {
@@ -21,7 +21,65 @@ void bubble_sort(char **str, int len) {
 
 
 void radix_sort(char **str, int len) {}
-void quick_sort(char **str, int len) {}
+
+
+void quick_sort(char **str, int len) {
+	real_quick_sort(str, 0, len-1);	
+}
+
+void real_quick_sort(char **str, int left, int right) {
+	if (left >= right) {
+		return;
+	}
+
+
+	int pivot = right;
+	int left_partition_position = left;
+
+	for(int i = left; i < pivot; i++) {
+		if (strcmp(str[pivot], str[i]) > 0) {
+			if (left_partition_position < i) {
+				char *temp = str[left_partition_position];
+				str[left_partition_position] = str[i];
+				str[i] = temp;
+			}
+			left_partition_position  += 1;
+		}
+	}
+
+	if (left_partition_position != pivot) {
+		char *temp = str[left_partition_position];
+		str[left_partition_position] = str[pivot];
+		str[pivot] = temp;
+	}
+	pivot = left_partition_position;
+
+	if (left < pivot)
+		real_quick_sort(str, left, pivot-1);
+	if (right > pivot)
+		real_quick_sort(str, pivot+1, right);
+}
+
+
 void merge_sort(char **str, int len) {}
-void selection_sort(char **str, int len) {}
+
+
+
+void selection_sort(char **str, int len) {
+	for(int i = 0; i < len; i++) {
+		int min_position = i;
+
+		for (int j = i+1; j < len; j++) {
+			if (strcmp(str[min_position], str[j]) > 0) {
+				min_position = j;
+			}
+		}
+
+		if (i != min_position) {
+			char *temp = str[i];
+			str[i] = str[min_position];
+			str[min_position] = temp;
+		}
+	}
+}
 
