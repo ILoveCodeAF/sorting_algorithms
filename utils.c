@@ -41,6 +41,13 @@ char** to_clone(char **str, int len) {
 	return clone_str;
 }
 
+double time_taken(void (*function_ptr)(char**, int), char** str, int len) {
+	clock_t t = clock();
+	function_ptr(str, len);
+	t = clock() - t;
+	return (double)t/CLOCKS_PER_SEC;
+}
+
 Node* new(char *str) {
 	Node *temp = (Node*) malloc(sizeof(Node));
 	temp->str = str;
@@ -48,10 +55,10 @@ Node* new(char *str) {
 	return temp;
 }
 
-void add(Node *head, char *str) {
+Node* add(Node *head, char *str) {
 	if (head == NULL) {
 		head = new(str);
-		return;
+		return head;
 	}
 
 	Node *t = head;
@@ -59,6 +66,7 @@ void add(Node *head, char *str) {
 		t = t->next;
 	}
 	t->next = new(str);
+	return head;
 }
 
 Node* del(Node *head) {

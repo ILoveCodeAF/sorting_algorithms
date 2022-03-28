@@ -1,6 +1,8 @@
 #include "sort_algorithms.h"
 #include <string.h> //strcmp()
 #include "utils.h"
+#include <stdlib.h>
+
 
 /*   
  *   bubble sort 
@@ -27,7 +29,40 @@ void bubble_sort(char **str, int len) {
 /* 
  * radix sort
  */
-void radix_sort(char **str, int len) {}
+void radix_sort(char **str, int len) {
+	int max_element_len = 0;
+	for (int i = 0; i < len; i++ ) {
+		if (max_element_len < strlen(str[i]))  {
+			max_element_len  = strlen(str[i]);
+		}
+	}
+
+	// 128 is number of ascii characters
+	int n = 129;
+	Node **brackets = (Node**) malloc(n*sizeof(Node*));
+	for (int i = 0; i < n; i++) {
+		brackets[i] = NULL;
+	}
+
+	for (int i = 0; i < max_element_len; i++) {
+		for (int j = 0; j < len; j++) {
+			if( max_element_len-1-i < strlen(str[j]) ) {
+				brackets[str[j][max_element_len-1-i]+1] = add(brackets[str[j][max_element_len-1-i]+1], str[j]);
+			}
+			else {
+				brackets[0] = add(brackets[0], str[j]);
+			}
+		}
+		int k = 0;
+		for(int j = 0; j < n; j++) {
+			while(brackets[j] != NULL) {
+				str[k] = brackets[j]->str;
+				k += 1;
+				brackets[j] = del(brackets[j]);
+			}
+		}
+	}
+}
 
 
 /* 
