@@ -63,7 +63,10 @@ void compare_sort_algorithm(int fd, int n) {
 	printf("quick sort: %f  %s\n", quick_sort_runtime, double_to_string(quick_sort_runtime));
 	printf("bubble sort: %f  %s\n", bubble_sort_runtime, double_to_string(bubble_sort_runtime));
 	printf("selection sort: %f  %s\n", selection_sort_runtime, double_to_string(selection_sort_runtime));
-	
+	printf("sorted str: \n");
+	print_array(str1, n);
+
+
 	snprintf(buff, sizeof(buff), "HTTP/1.1 200 OK \r\nContent-Type: application/json\r\n\r\n");
 	write(fd, buff, strlen(buff));
 

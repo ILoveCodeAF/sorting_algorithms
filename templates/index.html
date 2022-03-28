@@ -22,13 +22,21 @@
 				let bubble_sort_runtime_id = document.getElementById('bubble_sort_runtime_id');
 				let selection_sort_runtime_id = document.getElementById('selection_sort_runtime_id');
 				
+				// fetch('localhost:8080/?' + new URLSearchParams({
+				// 	n: 1000
+				// }))
+				fetch('http://localhost:8080/?' + new URLSearchParams({
+				 	n: input.value
+				}))
+				.then(response => response.json())
+				.then(data => console.log(data));
 				
 				radix_sort_runtime_id.innerHTML = "hello";
 				merge_sort_runtime_id.innerHTML = "1";
 				quick_sort_runtime_id.innerHTML = "2";
 				bubble_sort_runtime_id.innerHTML = "3.9";
 				selection_sort_runtime_id.innerHTML = "a1";
-				alert(input.value);
+				//alert(input.value);
 			}
 
 			// let submit_btn = document.getElementById('submit_button_id');
