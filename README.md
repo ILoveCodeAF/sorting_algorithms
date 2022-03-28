@@ -19,7 +19,7 @@ and access link:
 > localhost:8080
 
 Api:
-> localhost:8080/?n=<number>
+> localhost:8080/?n=number
 
 ## Usage
 
