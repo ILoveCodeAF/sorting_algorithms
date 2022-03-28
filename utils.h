@@ -22,5 +22,6 @@ Node* del(Node *head);
 char* array_to_json_string(char **str, int len);
 char* double_to_string(double d);
 char* pair_to_json_string(char* key, char* value);
+int add_two_strs(char* str1, int k, char* str2);
 
 #endif

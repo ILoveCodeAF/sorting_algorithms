@@ -112,10 +112,9 @@ char* array_to_json_string(char **str, int len) {
 }
 
 char* double_to_string(double d) {
-	double num = 123412341234.123456789;
 	char* output = (char*) malloc(50*sizeof(char));
 
-	snprintf(output, 50, "%f", num);
+	snprintf(output, 50, "%f", d);
 	return output;
 }
 //not correct for all cases
@@ -141,6 +140,14 @@ char* pair_to_json_string(char* key, char* value) {
 	}
 	json_str[k] = '\0';
 	return json_str;
+}
+
+int add_two_strs(char* str1, int k, char* str2) {
+	for(int i = 0; i < strlen(str2); i++) {
+		str1[k] = str2[i];
+		k += 1;
+	}
+	return k;
 }
 
 
