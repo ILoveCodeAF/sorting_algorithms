@@ -12,10 +12,19 @@
 		
 		Enter number: <input type="text" name="number_input" id="number_input_id" />
 		<button id="submit_button_id" onclick="send_request()">Submit</button>
+		<br/>
+		<br/>
+		<br/>
+		string input: <span id="string_input_id"></span>
+		<br/>
+		<br/>
+		<br/>
 		
 		<script>
 			function send_request() {
 				let input = document.getElementById('number_input_id');
+				let string_input_id = document.getElementById('string_input_id');
+				let string_output_id = document.getElementById('string_output_id');
 				let radix_sort_runtime_id = document.getElementById('radix_sort_runtime_id');
 				let merge_sort_runtime_id = document.getElementById('merge_sort_runtime_id');
 				let quick_sort_runtime_id = document.getElementById('quick_sort_runtime_id');
@@ -32,7 +41,9 @@
 				.then(data => {
 					console.log(data);
 					data = JSON.parse(data);
-					
+
+					string_input_id.innerHTML = data.str;
+					string_output_id.innerHTML = data.sorted_str;
 					radix_sort_runtime_id.innerHTML = data.radix_sort;
 					merge_sort_runtime_id.innerHTML = data["merge_sort"];
 					quick_sort_runtime_id.innerHTML = data["quick_sort"];
@@ -82,5 +93,11 @@
 				<td id="selection_sort_runtime_id" align="right"></td>
 			</tr>
 		</table>
+		<br/>
+		<br/>
+		string output: <span id="string_output_id"></span>
+		<br/>
+		<br/>
+		<br/>
 	</body>
 </html>
