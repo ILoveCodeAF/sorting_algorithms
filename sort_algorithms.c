@@ -2,7 +2,9 @@
 #include <string.h> //strcmp()
 #include "utils.h"
 
-
+/*   
+ *   bubble sort 
+*/
 void bubble_sort(char **str, int len) {
 	int result_cmp_strs = 0;
 	
@@ -21,9 +23,16 @@ void bubble_sort(char **str, int len) {
 }
 
 
+
+/* 
+ * radix sort
+ */
 void radix_sort(char **str, int len) {}
 
 
+/* 
+ * quick sort
+ */
 void quick_sort(char **str, int len) {
 	real_quick_sort(str, 0, len-1);	
 }
@@ -62,6 +71,9 @@ void real_quick_sort(char **str, int left, int right) {
 }
 
 
+/*
+ * merge sort
+ */
 void merge_sort(char **str, int len) {
 	char **clone_str = to_clone(str, len);
 	top_down_split_merge(clone_str, 0, len, str);
@@ -94,7 +106,9 @@ void top_down_merge(char **str1, int left, int mid, int right, char **str2) {
 }
 
 
-
+/*
+ * selection sort
+ */
 void selection_sort(char **str, int len) {
 	for(int i = 0; i < len; i++) {
 		int min_position = i;

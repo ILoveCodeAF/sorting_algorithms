@@ -41,3 +41,33 @@ char** to_clone(char **str, int len) {
 	return clone_str;
 }
 
+Node* new(char *str) {
+	Node *temp = (Node*) malloc(sizeof(Node));
+	temp->str = str;
+	temp->next = NULL;
+	return temp;
+}
+
+void add(Node *head, char *str) {
+	if (head == NULL) {
+		head = new(str);
+		return;
+	}
+
+	Node *t = head;
+	while (t->next != NULL) {
+		t = t->next;
+	}
+	t->next = new(str);
+}
+
+Node* del(Node *head) {
+	if (head == NULL)
+		return NULL;
+	Node *temp = head;
+	head = head->next;
+	free(temp);
+	return head;
+}
+
+
