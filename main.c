@@ -86,7 +86,7 @@ void compare_sort_algorithm(int fd, int n) {
 							+ strlen(quick_sort_key_value)
 							+ strlen(bubble_sort_key_value)
 							+ strlen(selection_sort_key_value)
-							+ strlen(json_sorted_str_key_value) + 10;
+							+ strlen(json_sorted_str_key_value) + 20;
 	char* json_response = (char*) malloc(json_response_len*sizeof(char));
 	int k = 0;
 	json_response[k] = '"';
@@ -143,7 +143,7 @@ void handle_http_request(int fd) {
 	printf("addr: %s\n", addr);
 
 	n = 0;
-	if(strlen(addr) > 5)
+	if(strlen(addr) > 4)
 		if(addr[0] == '/' && addr[1] == '?'
 				&& addr[2] == 'n' && addr[3] == '=') {
 			i = 4;

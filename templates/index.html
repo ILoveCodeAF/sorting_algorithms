@@ -29,13 +29,22 @@
 				 	n: input.value
 				}))
 				.then(response => response.json())
-				.then(data => console.log(data));
+				.then(data => {
+					console.log(data);
+					data = JSON.parse(data);
+					
+					radix_sort_runtime_id.innerHTML = data.radix_sort;
+					merge_sort_runtime_id.innerHTML = data["merge_sort"];
+					quick_sort_runtime_id.innerHTML = data["quick_sort"];
+					bubble_sort_runtime_id.innerHTML = data["bubble_sort"];
+					selection_sort_runtime_id.innerHTML = data["selection_sort"];
+				});
 				
-				radix_sort_runtime_id.innerHTML = "hello";
-				merge_sort_runtime_id.innerHTML = "1";
-				quick_sort_runtime_id.innerHTML = "2";
-				bubble_sort_runtime_id.innerHTML = "3.9";
-				selection_sort_runtime_id.innerHTML = "a1";
+				// radix_sort_runtime_id.innerHTML = "hello";
+				// merge_sort_runtime_id.innerHTML = "1";
+				// quick_sort_runtime_id.innerHTML = "2";
+				// bubble_sort_runtime_id.innerHTML = "3.9";
+				// selection_sort_runtime_id.innerHTML = "a1";
 				//alert(input.value);
 			}
 
@@ -50,27 +59,27 @@
 		<table>
 			<tr>
 				<td><strong>Algorithm</strong></td>
-				<td><strong>Runtime</strong></td>
+				<td><strong>Runtime in seconds</strong></td>
 			</tr>
 			<tr>
 				<td>Radix sort (O(nd))</td>
-				<td id="radix_sort_runtime_id"></td>
+				<td id="radix_sort_runtime_id" align="right"></td>
 			</tr>
 			<tr>
 				<td>Merge sort (nlog(n))</td>
-				<td id="merge_sort_runtime_id"></td>
+				<td id="merge_sort_runtime_id" align="right"></td>
 			</tr>
 			<tr>
 				<td>Quick sort (nlog(n))</td>
-				<td id="quick_sort_runtime_id"></td>
+				<td id="quick_sort_runtime_id" align="right"></td>
 			</tr>
 			<tr>
 				<td>Bubble sort (O(n^2))</td>
-				<td id="bubble_sort_runtime_id"></td>
+				<td id="bubble_sort_runtime_id" align="right"></td>
 			</tr>
 			<tr>
 				<td>Selection sort (O(n^2))</td>
-				<td id="selection_sort_runtime_id"></td>
+				<td id="selection_sort_runtime_id" align="right"></td>
 			</tr>
 		</table>
 	</body>
