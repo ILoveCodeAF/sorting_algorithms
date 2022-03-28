@@ -86,7 +86,7 @@ void compare_sort_algorithm(int fd, int n) {
 							+ strlen(json_sorted_str_key_value) + 10;
 	char* json_response = (char*) malloc(json_response_len*sizeof(char));
 	int k = 0;
-	json_response[k] = '\'';
+	json_response[k] = '"';
 	k += 1;
 	json_response[k] = '{';
 	k += 1;
@@ -105,7 +105,7 @@ void compare_sort_algorithm(int fd, int n) {
 	k = add_two_strs(json_response, k, json_sorted_str_key_value);
 	json_response[k] = '}';
 	k += 1;
-	json_response[k] = '\'';
+	json_response[k] = '"';
 	k += 1;
 	json_response[k] = '\0';
 

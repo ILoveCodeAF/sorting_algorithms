@@ -84,7 +84,7 @@ Node* del(Node *head) {
 char* array_to_json_string(char **str, int len) {
 	int json_str_len = 0;
 	for (int i = 0; i < len; i++) {
-		json_str_len = json_str_len + strlen(str[i]) + 3;
+		json_str_len = json_str_len + strlen(str[i]) + 5;
 	}
 	json_str_len += 5;
 
@@ -93,12 +93,16 @@ char* array_to_json_string(char **str, int len) {
 	
 	int k = 1;
 	for (int i = 0; i < len; i++) {
+		json_str[k] = '\\';
+		k += 1;
 		json_str[k] = '"';
 		k += 1;
 		for(int j = 0; j < strlen(str[i]); j++) {
 			json_str[k] = str[i][j];
 			k += 1;
 		}
+		json_str[k] = '\\';
+		k += 1;
 		json_str[k] = '"';
 		k += 1;
 		if (i < len-1){
@@ -119,16 +123,20 @@ char* double_to_string(double d) {
 }
 //not correct for all cases
 char* pair_to_json_string(char* key, char* value) {
-	int json_len = strlen(key) + strlen(value) + 4;
+	int json_len = strlen(key) + strlen(value) + 10;
 	char* json_str = (char*)malloc(json_len*sizeof(char));
 
 	int k = 0;
+	json_str[k] = '\\';
+	k += 1;
 	json_str[k] = '"';
 	k += 1;
 	for (int i = 0; i < strlen(key); i++) {
 		json_str[k] = key[i];
 		k+=1;
 	}
+	json_str[k] = '\\';
+	k += 1;
 	json_str[k] = '"';
 	k+=1;
 	json_str[k] = ':';
