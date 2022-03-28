@@ -10,7 +10,7 @@
 #include <string.h>
 
 #define PORT 8080
-#define MAX_LINE 1024
+#define MAX_LINE 4096
 
 void handle_http_request(int fd) {
 	printf("call in handle func\n");
@@ -19,13 +19,28 @@ void handle_http_request(int fd) {
 
 	int n = read(fd, recvline, MAX_LINE);
 	fprintf(stdout, "\n%s\n", recvline);
-		
-	snprintf(buff, sizeof(buff), "HTTP/1.0 200 OK\r\n\r\nHello");
+
 	
-	printf("%s\n", buff);
+	snprintf(buff, sizeof(buff), "HTTP/1.1 200 OK \r\nContent-Type: text/html\r\n\r\n");
 	write(fd, buff, strlen(buff));
+
+	FILE *fp;
+	fp = fopen("templates/index.html", "r");
+	if (fp) {
+		while ((n = fread(buff, 1, MAX_LINE, fp)) > 0) {
+			write(fd, buff, n);
+		}
+		fclose(fp);
+	}
+	else {
+		printf("failed to read file\n");
+	}
+	//snprintf(buff, sizeof(buff), "HTTP/1.0 200 OK\r\n\r\nHello");
+	
+	//printf("%s\n", buff);
+	//write(fd, buff, strlen(buff));
 	//send(fd, buff, strlen(buff), 0);
-	printf("done.\n");
+	//printf("done.\n");
 }
 
 
