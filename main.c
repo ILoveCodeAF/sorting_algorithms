@@ -12,35 +12,89 @@
 #define PORT 8080
 #define MAX_LINE 4096
 
-void handle_http_request(int fd) {
-	printf("call in handle func\n");
+void read_file_and_send(int fd, char *filename) {
+	int nread = 0;
 	char buff[MAX_LINE] = {0};
-	char recvline[MAX_LINE] = {0};
-
-	int n = read(fd, recvline, MAX_LINE);
-	fprintf(stdout, "\n%s\n", recvline);
-
-	
 	snprintf(buff, sizeof(buff), "HTTP/1.1 200 OK \r\nContent-Type: text/html\r\n\r\n");
 	write(fd, buff, strlen(buff));
 
 	FILE *fp;
-	fp = fopen("templates/index.html", "r");
+	fp = fopen(filename, "r");
 	if (fp) {
-		while ((n = fread(buff, 1, MAX_LINE, fp)) > 0) {
-			write(fd, buff, n);
+		while ((nread = fread(buff, 1, MAX_LINE, fp)) > 0) {
+			write(fd, buff, nread);
 		}
 		fclose(fp);
 	}
 	else {
 		printf("failed to read file\n");
 	}
-	//snprintf(buff, sizeof(buff), "HTTP/1.0 200 OK\r\n\r\nHello");
+}
+
+void _index(int fd) {
+	read_file_and_send(fd, "templates/index.html");
+}
+
+void page_not_found404(int fd) {
+	read_file_and_send(fd, "templates/404.html");
+}
+
+void compare_sort_algorithm(int fd, int n) {
+	char buff[MAX_LINE] = {0};
+	snprintf(buff, sizeof(buff), "HTTP/1.1 200 OK \r\nContent-Type: application/json\r\n\r\n");
+	write(fd, buff, strlen(buff));
+}
+
+void handle_http_request(int fd) {
+	printf("call in handle func\n");
+	char recvline[MAX_LINE] = {0};
+
+	int n = read(fd, recvline, MAX_LINE);
+	fprintf(stdout, "\n%s\n", recvline);
+
+	char method[10];
+	int i = 0;
+	while(recvline[i] != ' ') {
+		method[i] = recvline[i];
+		i += 1;
+	}
+	method[i] = '\0';
+	printf("\nmethod: %s\ni=%d\n", method, i);
+	char addr[50];
 	
-	//printf("%s\n", buff);
-	//write(fd, buff, strlen(buff));
-	//send(fd, buff, strlen(buff), 0);
-	//printf("done.\n");
+	i += 1;
+	int j = 0;
+	while(recvline[i] != ' ' && j < 49) {
+		addr[j] = recvline[i];
+		i += 1;
+		j += 1;
+	}
+	addr[j] = '\0';
+	printf("addr: %s\n", addr);
+
+	n = 0;
+	if(strlen(addr) > 5)
+		if(addr[0] == '/' && addr[1] == '?'
+				&& addr[2] == 'n' && addr[3] == '=') {
+			i = 4;
+			while(i < strlen(addr)) {
+				n = n*10 + (addr[i]-'0');
+				i += 1;
+			}
+		}
+
+	if(n > 0) {
+		printf("call compare sort algorithm func: n = %d\n", n);
+		compare_sort_algorithm(fd, n);
+		return;
+	}	
+
+	if (strcmp(addr, "/") == 0) {
+		_index(fd);
+		return;
+	}
+
+	page_not_found404(fd);
 }
 
 
