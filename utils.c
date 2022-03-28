@@ -52,6 +52,7 @@ Node* new(char *str) {
 	Node *temp = (Node*) malloc(sizeof(Node));
 	temp->str = str;
 	temp->next = NULL;
+	temp->tail = temp;
 	return temp;
 }
 
@@ -61,18 +62,20 @@ Node* add(Node *head, char *str) {
 		return head;
 	}
 
-	Node *t = head;
-	while (t->next != NULL) {
-		t = t->next;
-	}
-	t->next = new(str);
+	head->tail->next = new(str);
+	head->tail = head->tail->next;
 	return head;
 }
 
 Node* del(Node *head) {
-	if (head == NULL)
+	if (head == NULL) {
 		return NULL;
+	}
 	Node *temp = head;
+	if (head->next != NULL) {
+		head->next->tail = head->tail;
+	}
+
 	head = head->next;
 	free(temp);
 	return head;

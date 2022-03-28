@@ -9,6 +9,7 @@ double time_taken(void (*function_ptr)(char**, int), char** str, int len);
 struct _NODE {
 	char *str;
 	struct _NODE *next;
+	struct _NODE *tail;
 };
 
 typedef struct _NODE Node;
